@@ -1,4 +1,4 @@
-const Lyricsify = artifacts.require("Lyricsify"),
+const Lyricsify = artifacts.require("./Lyricsify"),
       truffleAssert = require('truffle-assertions');
 
 
