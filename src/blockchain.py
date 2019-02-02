@@ -8,6 +8,8 @@ from .utils import get_address_from_compiled_json
 
 class EthereumMiddleware:
     web3 = None
+    contract_address = None
+    contract_abi = None
 
     def __init__(self, *args, **kwargs):
         contract_build_file = kwargs.get('contract_build_file', None)
@@ -18,8 +20,14 @@ class EthereumMiddleware:
         self.w3 = Web3(Web3.HTTPProvider(web3_http_provider_url))
         with contract_build_file as f:
             datastore = json.load(f)
-            abi = datastore["abi"]
-            contract_address = get_address_from_compiled_json(datastore)
+            self.contract_abi = datastore["abi"]
+            self.contract_address = get_address_from_compiled_json(datastore)
+        self.w3.eth.defaultAccount = self.w3.eth.accounts[1]
 
     def store_new_lyric(self, lyric, *args, **kwargs):
-        pass
+        instance = self.w3.eth.contract(address=self.contract_address, abi=self.contract_abi)
+        tx_hash = instance.functions.setLyricForSender(lyric)
+        tx_hash = tx_hash.transact()
+        self.w3.eth.waitForTransactionReceipt(tx_hash)
+        _lyric = instance.functions.getLyricByIndex(0).call()
+        print(_lyric)
