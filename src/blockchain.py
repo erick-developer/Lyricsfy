@@ -31,3 +31,9 @@ class EthereumMiddleware:
         self.w3.eth.waitForTransactionReceipt(tx_hash)
         _lyric = instance.functions.getLyricByIndex(0).call()
         print(_lyric)
+        _amount_of_publishers = instance.functions.getUsersCount().call()
+        print(_amount_of_publishers)
+        return {
+            'lyric': _lyric,
+            'count': _amount_of_publishers,
+        }
