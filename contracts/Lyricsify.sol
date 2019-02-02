@@ -19,6 +19,10 @@ contract Lyricsify {
         return lyrics[lyricsOwner[_idx]];
     }
 
+    function getUsersCount() public view returns(uint) {
+        return lyricsOwner.length;
+    }
+
     function setLyricForSender(string memory _lyric) public {
         lyrics[msg.sender] = _lyric;
         lyricsOwner.push(msg.sender);
