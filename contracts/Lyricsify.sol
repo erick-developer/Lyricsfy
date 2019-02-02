@@ -15,11 +15,11 @@ contract Lyricsify {
         owner = msg.sender;
     }
 
-    function getLyricByIndex(uint8 _idx) public view returns(string memory) {
+    function getLyricByIndex(uint8 _idx) public view returns(string memory lyric) {
         return lyrics[lyricsOwner[_idx]];
     }
 
-    function getUsersCount() public view returns(uint) {
+    function getUsersCount() public view returns(uint count) {
         return lyricsOwner.length;
     }
 
