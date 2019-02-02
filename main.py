@@ -1,8 +1,13 @@
 from src.blockchain import EthereumMiddleware
 
 
+CONTRACT_NAME = 'Lyricsify'
+
+
 SETTINGS = {
-    'COMPILED_CONTRACT': open('./build/')
+    'CONTRACT_NAME': CONTRACT_NAME,
+    'COMPILED_CONTRACT':
+        open('./build/contracts/{}.json'.format(CONTRACT_NAME)),
 }
 
 
